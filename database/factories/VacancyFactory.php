@@ -17,6 +17,7 @@ class VacancyFactory extends Factory
     public function definition(): array
     {
         return [
+            
             //
         ];
     }
