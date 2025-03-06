@@ -17,8 +17,14 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('role', ['admin', 'user', 'guest']);
             $table->rememberToken();
             $table->timestamps();
+
+            // Foreign key constraint
+
+            $table->unsignedBigInteger('company_id')->nullable(); // Add this line if users can belong to companies
+    $table->foreign('company_id')->references('id')->on('companies')->onDelete('set null'); // Ensure 'id' is the referenced column
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
