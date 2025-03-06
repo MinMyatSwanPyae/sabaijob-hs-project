@@ -24,7 +24,7 @@ return new class extends Migration
             // Foreign key constraint
 
             $table->unsignedBigInteger('company_id')->nullable(); // Add this line if users can belong to companies
-    $table->foreign('company_id')->references('id')->on('companies')->onDelete('set null'); // Ensure 'id' is the referenced column
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('set null'); // Ensure 'id' is the referenced column
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

@@ -17,8 +17,12 @@ class VacancyFactory extends Factory
     public function definition(): array
     {
         return [
-        //
-            
+        'title' => $this->faker->jobTitle,
+        'description' => $this->faker->optional()->paragraph,
+        'salary_range' => $this->faker->numberBetween(30000, 100000) . '-' . $this->faker->numberBetween(100001, 200000),
+        'location' => $this->faker->city,
+        'job_type' => $this->faker->randomElement(['On-site', 'Remote', 'Hybrid']),
+        'company_id' => 1, // make this random
         ];
     }
 }
