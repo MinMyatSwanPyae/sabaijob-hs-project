@@ -11,17 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
+        
         Schema::create('vacancy', function (Blueprint $table) {
-            $table->uuid('vacancy_id')->primary();
-            $table->string('vacancy_title');
-            $table->text('vacancy_description')->nullable();
-            $table->uuid('company_id');
-            $table->uuid('recruiter_id');
+            $table->id(); // This automatically creates an integer primary key autoincrement column named 'id'
+            $table->string('title');
+            $table->text('description')->nullable();
             $table->string('salary_range');
             $table->string('location');
-            $table->bigInteger('job_type');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrentOnUpdate();
+            $table->integer('job_type');
+            $table->timestamps();
+        
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+        
+
         });
     }
 
