@@ -14,12 +14,12 @@ class Vacancy extends Model
     // Model Relations// 
     public function company()
     {
-        return $this->belongsTo(company::class);
+        return $this->belongsTo(Company::class);
     }
 
-    public function application()
+    public function applications() 
     {
-        return $this->belongsToMany(company::class); 
+        return $this->hasMany(Application::class); 
     }
 }
 
