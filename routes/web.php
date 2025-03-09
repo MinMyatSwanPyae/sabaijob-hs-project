@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/vacancies', [\App\Http\Controllers\VacancyController::class, 'index']);
+Route::get('/vacancies/{vacancy}', [\App\Http\Controllers\VacancyController::class, 'show']);
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -18,3 +20,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
