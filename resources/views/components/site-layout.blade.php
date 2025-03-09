@@ -12,7 +12,7 @@
             <div class="font-bold text-lg">Sabai Job</div>
             <ul class="flex gap-x-6">
                 <li><a href="/vacancies">Vacancies</a></li>
-                <li>Companies</li>
+                <li><a href="/companies"> Companies </a></li>
                 <li>My Application</li>
                 <li>Contact us</li>
             </ul>
