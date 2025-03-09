@@ -1,3 +1,4 @@
+<x-site-layout>
 <h2> Vacancies </h2> 
 
 <ul>
@@ -7,3 +8,4 @@
   @endforeach
   
 </ul> 
+</x-site-layout>
