@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => $this->faker->boolean(50) ? $this->faker->dateTimeBetween('-1 year', 'now') : null,
             'password' => bcrypt('password'),  // You should hash the password
-            'role' => $this->faker->randomElement(['admin', 'user', 'guest'])
+            'role' => $this->faker->randomElement(['admin', 'user', 'recruiter'])
         ];
     }
 
