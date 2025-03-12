@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Vacancy extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'title', 'description', 'location', 'closing_date', 'company_id'
     ];

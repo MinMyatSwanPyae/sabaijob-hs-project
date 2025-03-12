@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Factories;
+use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CompanyFactory extends Factory
@@ -8,10 +9,9 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->company,
-            'description' => $this->faker->optional()->text(200),
-            'website' => $this->faker->optional()->url,
-            'recruiter_id' => $this->faker->numberBetween(1, 20)
+            'name' => $this->faker->company,
+            'address' => $this->faker->address,
+            'website' => $this->faker->url,
         ];
     }
 }
