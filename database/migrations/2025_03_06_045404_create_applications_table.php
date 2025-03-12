@@ -12,17 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('applications', function (Blueprint $table) {
-            $table->id(); 
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('vacancy_id');
-            $table->string('status')->default('pending')->comment('Status can be: pending, accepted, rejected');
-            $table->text('resume');
-            $table->text('cover_letter');
+            $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('vacancy_id')->constrained('vacancies');
+            $table->timestamp('applied_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->text('cover_letter')->nullable();
             $table->timestamps();
-        
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('vacancy_id')->references('id')->on('vacancies')->onDelete('cascade');
         });
+        
     }
 
     /**

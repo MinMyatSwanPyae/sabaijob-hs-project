@@ -13,18 +13,15 @@ return new class extends Migration
     {
         
         Schema::create('vacancies', function (Blueprint $table) {
-            $table->id(); // This automatically creates an integer primary key autoincrement column named 'id'
+            $table->id();
+            $table->foreignId('company_id')->constrained('companies');
             $table->string('title');
-            $table->text('description')->nullable();
-            $table->string('salary_range');
+            $table->text('description');
             $table->string('location');
-            $table->enum('job_type', ['On-site', 'Remote', 'Hybrid']);
+            $table->timestamp('closing_date')->nullable();
             $table->timestamps();
-        
-            $table->foreignId('company_id');
-        
-
         });
+        
     }
 
     /**

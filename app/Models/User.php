@@ -57,4 +57,21 @@ class User extends Authenticatable
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
+
+    // Check if the user is a recruiter
+    public function isRecruiter()
+    {
+        return $this->role === 'recruiter';
+    }
+
 }

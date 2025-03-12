@@ -8,18 +8,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Vacancy extends Model
 {
-    use HasFactory;
-    //
+    protected $fillable = [
+        'title', 'description', 'location', 'closing_date', 'company_id'
+    ];
 
-    // Model Relations// 
     public function company()
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function applications() 
+    public function applications()
     {
-        return $this->hasMany(Application::class); 
+        return $this->hasMany(Application::class);
     }
 }
-

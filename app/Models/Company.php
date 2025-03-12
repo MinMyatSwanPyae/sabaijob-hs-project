@@ -7,16 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    
-    use HasFactory;
+    protected $fillable = [
+        'name', 'address', 'website'
+    ];
 
-    public function vacancy()
+    public function recruiters()
     {
-        return $this->hasMany(Vacancy::class);
+        return $this->hasMany(User::class)->where('role', 'recruiter');
     }
 
-    public function user()
+    public function vacancies()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Vacancy::class);
     }
 }
