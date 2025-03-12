@@ -15,11 +15,11 @@ class VacancyController extends Controller
 
     }
 
-    public function show(int $vacancies)
+    public function show($id)
     {
-        $vacancies = \App\Models\Vacancy::where('id', $vacancies)->first();
-        return view('site.vacancies.show', ['vacancy' => $vacancies]);
-
+        // Fetching a single vacancy by ID with its related recruiter data
+        $vacancy = Vacancy::with('recruiter')->findOrFail($id);
+        return view('site.vacancies.show', compact('vacancy'));
     }
 
 }

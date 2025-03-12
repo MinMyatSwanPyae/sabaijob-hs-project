@@ -9,16 +9,15 @@ class CompanyController extends Controller
 {
     public function index()
     {
-        $companies = Company::all();
-        
-        return view('site.companies.index', ['companies'=> $companies]);
+        // Fetch all companies; consider using pagination if there are many companies
+        $companies = Company::paginate(10);
+        return view('site.companies.index', compact('companies'));
     }
 
-    public function show(int $companies)
+    public function show($id)
     {
-        $companies = \App\Models\Company::where('id', $companies)->first();
-        return view('site.companies.show', ['company' => $companies]);
+        // Fetch a single company by ID, possibly with related data like vacancies
+        $company = Company::with('vacancies')->findOrFail($id);
+        return view('site.companies.show', compact('company'));
     }
-
-
 }

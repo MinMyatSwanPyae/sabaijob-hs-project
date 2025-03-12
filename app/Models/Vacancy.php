@@ -22,4 +22,10 @@ class Vacancy extends Model
     {
         return $this->hasMany(Application::class);
     }
+
+    public function recruiter()
+    {
+        return $this->belongsTo(User::class, 'recruiter_id');
+    }
+
 }
