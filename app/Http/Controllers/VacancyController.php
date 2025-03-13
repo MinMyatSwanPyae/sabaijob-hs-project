@@ -22,4 +22,29 @@ class VacancyController extends Controller
         return view('site.vacancies.show', compact('vacancy'));
     }
 
+
+    public function edit($id)
+    {
+    $vacancy = Vacancy::findOrFail($id);
+    return view('site.vacancies.edit', compact('vacancy'));
+    }
+
+public function update(Request $request, $id)
+    {
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+    ]);
+
+    $vacancy = Vacancy::findOrFail($id);
+    $vacancy->update([
+        'title' => $request->title,
+        'description' => $request->description,
+    ]);
+
+    return redirect()->route('vacancies.show', $vacancy->id)
+                     ->with('success', 'Vacancy updated successfully!');
+    }
+
+
 }

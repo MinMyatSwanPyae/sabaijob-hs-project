@@ -15,6 +15,8 @@
                 @endforeach
             </div>
         @endif
+        
+        <a href="{{ route('vacancies.edit', $vacancy->id) }}" class="btn btn-info">Edit</a>
     
         <a href="{{ url('/vacancies') }}">Back to Vacancies</a>
     </div>
