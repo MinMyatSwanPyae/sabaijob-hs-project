@@ -9,16 +9,16 @@ class VacancyController extends Controller
 {
     public function index()
     {
-    $vacancies = Vacancy::join('companies', 'companies.id', '=', 'vacancies.company_id')
-                        ->select('vacancies.*') 
-                        ->get();
+        $vacancies = Vacancy::join('companies', 'companies.id', '=', 'vacancies.company_id')
+                            ->select('vacancies.*')
+                            ->paginate(10); // Define how many items per page you want here
 
-    return view('site.vacancies.index', compact('vacancies'));
+        return view('site.vacancies.index', compact('vacancies'));
     }
 
     public function show($id)
     {
-    $vacancy = Vacancy::with('company')->findOrFail($id);
-    return view('site.vacancies.show', compact('vacancy'));
+        $vacancy = Vacancy::with('company')->findOrFail($id);
+        return view('site.vacancies.show', compact('vacancy'));
     }
 }

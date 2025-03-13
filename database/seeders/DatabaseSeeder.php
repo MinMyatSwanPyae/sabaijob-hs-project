@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'user'
         ]);
 
-        Company::factory(10)->create();
+        Company::factory(20)->create();
         User::factory(10)->create(['role' => 'admin']);
         User::factory(40)->create(['role' => 'user']);
         Vacancy::factory(50)->create();
