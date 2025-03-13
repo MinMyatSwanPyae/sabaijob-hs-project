@@ -22,9 +22,15 @@
             <p><strong>Company:</strong> Information unavailable</p>
         @endif
         
-    
+        <a href="{{ route('vacancies.edit', $vacancy->id) }}" class="btn btn-info">Edit</a>
+        
         <a href="{{ url('/vacancies') }}" class="btn btn-secondary">Back to Vacancies</a>
     
+        <form method="POST" action="{{ route('vacancies.destroy', $vacancy->id) }}" onsubmit="return confirm('Are you sure you want to delete this vacancy?')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
     </div>
     
 
