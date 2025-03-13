@@ -8,6 +8,7 @@ use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminVacancyController;
+use App\Http\Controllers\Admin\AdminCompanyController;
 use Livewire\Livewire;
 use Livewire\Volt\Volt;
 
@@ -22,15 +23,10 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin/dashboard', [AdminVacancyController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/vacancies', [AdminVacancyController::class, 'index'])->name('admin.vacancies.index');
     Route::resource('admin/vacancies', AdminVacancyController::class)->except(['index']);
+    Route::get('/admin/companies', [AdminCompanyController::class, 'show'])->name('admin.company.show');
 });
- 
-    
 
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [AdminVacancyController::class, 'index'])->name('dashboard');
-    Route::resource('vacancies', AdminVacancyController::class)->except(['index']);
-});
 
 // Public Routes for Vacancies
 Route::resource('vacancies', VacancyController::class)->only(['index', 'show']);

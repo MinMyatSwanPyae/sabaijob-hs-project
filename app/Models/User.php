@@ -68,10 +68,5 @@ class User extends Authenticatable
         return $this->hasMany(Application::class);
     }
 
-    // Check if the user is a recruiter
-    public function isRecruiter()
-    {
-        return $this->role === 'recruiter';
-    }
 
 }

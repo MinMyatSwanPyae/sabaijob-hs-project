@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
-            'password' => bcrypt('password'), // default password
+            'password' => str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT),
             'remember_token' => Str::random(10),
             'role' => $role,
             'company_id' => $role === 'recruiter' ? Company::factory() : null,

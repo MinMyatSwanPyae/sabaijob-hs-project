@@ -7,16 +7,19 @@
                     @if(Auth::user()->role === 'admin')
                         <!-- Admin-specific link -->
                         <li><a href="/admin/vacancies">Vacancies</a></li>
+                        <li><a href="/admin/companies">My Company</a></li>
+
                     @else
                         <!-- Normal user link -->
                         <li><a href="/vacancies">Vacancies</a></li>
+                        <li><a href="/companies">Companies</a></li>
+                        <li>My Application</li>
                     @endif
                 @else
                     <!-- Guest link (default public view) -->
                     <li><a href="/vacancies">Vacancies</a></li>
+                    <li><a href="/companies">Companies</a></li>
                 @endauth
-                <li><a href="/companies">Companies</a></li>
-                <li>My Application</li>
                 <li>Contact us</li>
             </ul>
 

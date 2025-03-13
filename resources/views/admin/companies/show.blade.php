@@ -1,18 +1,21 @@
 <x-site-layout>
     
-  <div class="container">
-    <h1>{{ $company->name }}</h1>
-    <p><strong>Address:</strong> {{ $company->address }}</p>
-    <p><strong>Website:</strong> <a href="{{ $company->website }}">{{ $company->website }}</a></p>
-
-    @if($company->vacancies->isNotEmpty())
-        <h3>Current Vacancies</h3>
-        <ul>
-            @foreach($company->vacancies as $vacancy)
-                <li><a href="{{ route('vacancies.show', $vacancy->id) }}">{{ $vacancy->title }}</a></li>
-            @endforeach
-        </ul>
-    @endif
-</div>
+    <div class="container">
+        <h1>Company Details</h1>
+        <div class="company-info">
+            <p><strong>Name:</strong> {{ $company->name }}</p>
+            <p><strong>Description:</strong> {{ $company->description }}</p>
+            <p><strong>Total Vacancies:</strong> {{ $company->vacancies->count() }}</p>
+            <p><strong>Colleague Admins:</strong>
+                <ul>
+                    @foreach ($company->recruiters as $recruiter)
+                        <li>{{ $recruiter->name }} - {{ $recruiter->email }}</li>
+                    @endforeach
+                </ul>
+            </p>
+            <a href="{{ route('admin.company.edit', $company->id) }}" class="btn btn-primary">Edit Company Information</a>
+        </div>
+    </div>
+    
 
   </x-site-layout>
