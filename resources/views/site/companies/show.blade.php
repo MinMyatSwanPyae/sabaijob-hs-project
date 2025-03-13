@@ -12,9 +12,12 @@
                 <li>
                   <a class=bg-pink-500 href="{{ route('vacancies.show', ['id' => $vacancy->id]) }}">{{ $vacancy->title }}</a>
                 </li>
+                
             @endforeach
         </ul>
     @endif
+
+    <a href="{{ route('companies.edit', $company->id) }}" class="btn btn-info">Edit</a>
 
     <a href="{{ url('/companies') }}">Back to Companies</a>
 </div>

@@ -8,6 +8,7 @@
                 <a href="{{ route('companies.show', $company->id) }}">
                     {{ $company->name }}
                 </a>
+                <a href="{{ route('companies.edit', $company->id) }}" class="btn btn-info">Edit</a>
             </li>
         @endforeach
     </ul>

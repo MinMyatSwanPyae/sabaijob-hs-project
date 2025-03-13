@@ -20,7 +20,9 @@ Route::put('/vacancies/{id}', [VacancyController::class, 'update'])->name('vacan
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
 Route::get('/companies/{id}', [CompanyController::class, 'show'])->name('companies.show');
 
-
+// Company Edit Feature
+Route::get('/companies/{id}/edit', [CompanyController::class, 'edit'])->name('companies.edit');
+Route::put('/companies/{id}', [CompanyController::class, 'update'])->name('companies.update');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
