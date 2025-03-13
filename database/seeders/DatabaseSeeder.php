@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Application;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,6 +17,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        User::create([
+            'name' => 'MinMyatSwan',
+            'email' => 'swan@gmail.com',
+            'password' => '123456',
+        ]);
+
         Company::factory(10)->create();
         User::factory(10)->create(['role' => 'recruiter']);
         User::factory(40)->create(['role' => 'user']);
