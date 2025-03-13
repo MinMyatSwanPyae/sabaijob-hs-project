@@ -8,7 +8,6 @@
         @if ($vacancy->company)
             <p><strong>Company:</strong> {{ $vacancy->company->name }}</p>
             
-            <!-- Asked ChatGPT For Help -->
             @if ($vacancy->company->recruiters && $vacancy->company->recruiters->isNotEmpty())
                 <div class="recruiter-info">
                     <h3>Recruiter Information</h3>
@@ -24,7 +23,7 @@
         
         <a href="{{ route('vacancies.edit', $vacancy->id) }}" class="btn btn-info">Edit</a>
         
-        <a href="{{ url('/vacancies') }}" class="btn btn-secondary">Back to Vacancies</a>
+        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Back to Vacancies</a> <!-- Updated to return to the dashboard -->
     
         <form method="POST" action="{{ route('vacancies.destroy', $vacancy->id) }}" onsubmit="return confirm('Are you sure you want to delete this vacancy?')">
             @csrf
@@ -32,6 +31,7 @@
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>
     </div>
+    
     
 
 </x-site-layout>

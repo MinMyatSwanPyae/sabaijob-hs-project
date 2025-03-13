@@ -16,6 +16,12 @@ class AdminDashboardController extends Controller
             return redirect()->route('home')->with('error', 'You are not authorized to view this page.');
         }
 
-        return view('admin.dashboard');
+        // Fetch only the vacancies associated with the admin's company
+        $company_id = Auth::user()->company_id; // Get the company ID from the logged-in user
+        $vacancies = Vacancy::where('company_id', $company_id)->get();
+
+        // Pass vacancies data to the view
+        return view('admin.dashboard', compact('vacancies'));
     }
 }
+

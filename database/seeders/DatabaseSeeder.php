@@ -22,10 +22,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'MinMyatSwan',
             'email' => 'swan@gmail.com',
             'password' => '123456',
+            'role' => 'admin'
         ]);
 
         Company::factory(10)->create();
-        User::factory(10)->create(['role' => 'recruiter']);
+        User::factory(10)->create(['role' => 'admin']);
         User::factory(40)->create(['role' => 'user']);
         Vacancy::factory(50)->create();
         Application::factory(100)->create();
