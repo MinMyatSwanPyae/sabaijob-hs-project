@@ -10,9 +10,7 @@
         <ul>
             @foreach($company->vacancies as $vacancy)
                 <li>
-                    <a href="{{ route('vacancies.show', $vacancy->id) }}">
-                        {{ $vacancy->title }}
-                    </a>
+                  <a class=bg-pink-500 href="{{ route('vacancies.show', ['id' => $vacancy->id]) }}">{{ $vacancy->title }}</a>
                 </li>
             @endforeach
         </ul>
@@ -21,4 +19,4 @@
     <a href="{{ url('/companies') }}">Back to Companies</a>
 </div>
 
-</x-site-layout>
+  </x-site-layout>

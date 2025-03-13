@@ -12,7 +12,6 @@
                 @foreach($vacancy->company->recruiters as $recruiter)
                     <p><strong>Name:</strong> {{ $recruiter->name }}</p>
                     <p><strong>Email:</strong> {{ $recruiter->email }}</p>
-                    {{-- Include more recruiter details if needed --}}
                 @endforeach
             </div>
         @endif

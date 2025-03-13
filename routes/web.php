@@ -3,12 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\VacancyController;
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Routes for Vacancies 
 Route::get('/vacancies', [\App\Http\Controllers\VacancyController::class, 'index']);
-Route::get('/vacancies/{vacancy}', [\App\Http\Controllers\VacancyController::class, 'show']);
+//Route::get('/vacancies/{vacancy}', [\App\Http\Controllers\VacancyController::class, 'show']);
+Route::get('/vacancies/{id}', [VacancyController::class, 'show'])->name('vacancies.show');
 
 // Routes For Companies 
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
