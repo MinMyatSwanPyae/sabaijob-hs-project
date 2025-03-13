@@ -1,22 +1,38 @@
 <x-site-layout>
 
-    <div class="container">
-        <h1>{{ $vacancy->title }}</h1>
-        <p>{{ $vacancy->description }}</p>
-        <p>Location: {{ $vacancy->location }}</p>
-    
-        @auth
-            <form action="{{ route('applications.store') }}" method="POST">
-                @csrf
-                <input type="hidden" name="vacancy_id" value="{{ $vacancy->id }}">
-                <button type="submit" class="btn btn-primary">Apply Now</button>
-            </form>
-        @else
-            <a href="{{ route('login') }}?redirect={{ request()->fullUrl() }}" class="btn btn-primary">Apply Now</a>
-        @endauth
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyModal">
+    Apply Now
+  </button>
+  
+  <!-- The Modal -->
+  <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="applyModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="applyModalLabel">Apply for {{ $vacancy->title }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="POST" action="{{ route('applications.store') }}">
+          @csrf
+          <div class="modal-body">
+            <input type="hidden" name="vacancy_id" value="{{ $vacancy->id }}">
+            <div class="form-group">
+              <label for="cover_letter">Cover Letter:</label>
+              <textarea class="form-control" id="cover_letter" name="cover_letter" rows="4" required></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit Application</button>
+          </div>
+        </form>
+      </div>
     </div>
-    
-        
+  </div>
+  
     
         <a href="{{ url('/vacancies') }}" class="btn btn-secondary">Back to Vacancies</a>
     

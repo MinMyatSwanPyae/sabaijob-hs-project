@@ -1,18 +1,30 @@
 <x-site-layout>
-<div class="container">
-    <h1>Your Applications</h1>
-    <ul class="list-group">
-        @forelse ($applications as $application)
-            <li class="list-group-item">
-                Vacancy: <strong>{{ $application->vacancy->title }}</strong><br>
-                Status: <strong>{{ $application->status }}</strong> <!-- Assuming there's a status field -->
-                <br>
-                Applied on: <strong>{{ $application->created_at->format('M d, Y') }}</strong>
-                <a href="{{ route('applications.show', $application->id) }}" class="btn btn-info">View Details</a>
-            </li>
-        @empty
-            <li class="list-group-item">No applications found.</li>
-        @endforelse
-    </ul>
-</div>
+  <table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Vacancy Title</th>
+            <th>Applied On</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($applications as $application)
+        <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $application->vacancy->title }}</td>
+            <td>{{ $application->created_at->toFormattedDateString() }}</td>
+            <td>
+                <!-- Delete Button -->
+                <form action="{{ route('applications.destroy', $application->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this application?')">Delete</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
 </x-site-layout>
