@@ -18,7 +18,7 @@ class LoginController extends Controller
         if (Auth::user()->role === 'admin') {
             return '/admin/vacancies'; // Redirect admins to the admin dashboard
         }
-        return '/home'; // Redirect standard users to the home page
+        return route('home'); // Redirect standard users to the home page
     }
 
     // You may also want to override the login method if you need custom logic
@@ -29,5 +29,17 @@ class LoginController extends Controller
         // After login logic
         return redirect($this->redirectTo());
     }
+
+    protected function authenticated(Request $request, $user)
+{
+    if ($request->has('redirect')) {
+        return redirect($request->redirect);
+    }
+
+    return route('home');  // Or wherever you typically redirect users after login
+}
+
+
+
 }
 

@@ -1,19 +1,33 @@
 <x-site-layout>
 
-    <div class="container">
-        <h1>Create Vacancy</h1>
-        <form method="POST" action="{{ route('vacancies.store') }}">
+    <div class="container mt-4">
+        <h1>Create New Vacancy</h1>
+        <form method="POST" action="{{ route('admin.vacancies.store') }}">
             @csrf
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="title">Title:</label>
-                <input type="text" id="title" name="title" class="form-control" required>
+                <input type="text" class="form-control" id="title" name="title" required>
+                <div class="invalid-feedback">
+                    Please provide a title.
+                </div>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="description">Description:</label>
-                <textarea id="description" name="description" class="form-control" required></textarea>
+                <textarea class="form-control" id="description" name="description" required></textarea>
+                <div class="invalid-feedback">
+                    Please provide a description.
+                </div>
+            </div>
+            <div class="form-group mb-3">
+                <label for="location">Location:</label>
+                <input type="text" class="form-control" id="location" name="location" required>
+                <div class="invalid-feedback">
+                    Please provide a location.
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Create</button>
         </form>
     </div>
+    
 
 </x-site-layout>

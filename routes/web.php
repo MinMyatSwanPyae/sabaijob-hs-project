@@ -22,10 +22,11 @@ Auth::routes();
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin/dashboard', [AdminVacancyController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/vacancies', [AdminVacancyController::class, 'index'])->name('admin.vacancies.index');
-    Route::resource('admin/vacancies', AdminVacancyController::class)->except(['index']);
+   Route::get('vacancies/create', [AdminVacancyController::class, 'create'])->name('admin.vacancies.create');
+   Route::post('/admin/vacancies', [AdminVacancyController::class, 'store'])->name('admin.vacancies.store');
+    Route::get('/admin/vacancies/{id}', [AdminVacancyController::class, 'show'])->name('admin.vacancies.show');
     Route::get('/admin/companies', [AdminCompanyController::class, 'show'])->name('admin.company.show');
 });
-
 
 
 // Public Routes for Vacancies
@@ -34,9 +35,15 @@ Route::resource('vacancies', VacancyController::class)->only(['index', 'show']);
 // Public Routes for Companies
 Route::resource('companies', CompanyController::class);
 
+
+
 // Application specific routes
 Route::middleware(['auth'])->group(function () {
-    Route::get('/applications/{id}', [ApplicationController::class, 'show'])->name('applications.show');
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
+        Route::get('/applications/{id}', [ApplicationController::class, 'show'])->name('applications.show');
+        Route::post('/applications', [ApplicationController::class, 'store'])->name('applications.store');
+    });
 });
 
 // Additional Auth routes

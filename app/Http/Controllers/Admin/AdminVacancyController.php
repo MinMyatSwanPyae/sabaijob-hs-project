@@ -15,7 +15,7 @@ class AdminVacancyController extends Controller
     public function index()
     {
         $vacancies = Vacancy::where('company_id', Auth::user()->company_id)->get();
-        return view('admin.dashboard', compact('vacancies'));
+        return view('admin.vacancies.show', compact('vacancies'));
     }
 
     /**
@@ -26,34 +26,41 @@ class AdminVacancyController extends Controller
         return view('admin.vacancies.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'location' => 'required',
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'location' => 'required|string|max:255',
         ]);
-
-        $vacancy = new Vacancy($request->all());
-        $vacancy->company_id = Auth::user()->company_id; // Ensure it's set to the admin's company
-        $vacancy->save();
-
-        return redirect()->route('admin.dashboard')->with('success', 'Vacancy created successfully.');
+    
+        if (is_null(auth()->user()->company_id)) {
+            return redirect()->back()->withErrors('You are not associated with any company.');
+        }
+    
+        $validated['company_id'] = auth()->user()->company_id;
+    
+        try {
+            $vacancy = new Vacancy($validated);
+            $vacancy->save();
+            return redirect()->route('admin.vacancies.index')->with('success', 'Vacancy created successfully!');
+        } catch (\Exception $e) {
+            return back()->withErrors('Failed to create vacancy: ' . $e->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
+
+
     public function show($id)
     {
-        $vacancy = Vacancy::where('id', $id)
-                          ->where('company_id', Auth::user()->company_id)
-                          ->firstOrFail();
-        return view('admin.vacancies.show', compact('vacancy'));
+    $vacancy = Vacancy::find($id);
+    if (!$vacancy) {
+        return redirect()->route('admin.vacancies.index')->with('error', 'Vacancy not found.');
     }
+
+    return view('admin.vacancies.show', compact('vacancy'));
+    }
+
 
     /**
      * Show the form for editing the specified resource.
