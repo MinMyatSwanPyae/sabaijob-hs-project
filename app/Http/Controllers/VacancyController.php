@@ -11,7 +11,7 @@ class VacancyController extends Controller
     {
         $vacancies = Vacancy::join('companies', 'companies.id', '=', 'vacancies.company_id')
                             ->select('vacancies.*')
-                            ->paginate(10); // Define how many items per page you want here
+                            ->paginate(12); 
 
         return view('site.vacancies.index', compact('vacancies'));
     }

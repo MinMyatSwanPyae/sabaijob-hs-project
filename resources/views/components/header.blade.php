@@ -1,3 +1,5 @@
+<head> <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> </head>
+
 <body>
     <div class="bg-pink-500 text-black">
         <div class="max-w-7xl mx-auto flex justify-between items-center h-20">
