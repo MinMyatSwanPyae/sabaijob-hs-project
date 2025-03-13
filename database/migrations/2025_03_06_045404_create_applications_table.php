@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('vacancy_id')->constrained('vacancies');
+            $table->foreignId('user_id');
+            $table->foreignId('vacancy_id');
             $table->timestamp('applied_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->text('cover_letter')->nullable();
             $table->timestamps();

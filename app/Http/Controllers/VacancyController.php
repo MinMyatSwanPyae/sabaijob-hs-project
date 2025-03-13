@@ -7,10 +7,14 @@ use App\Models\Vacancy;
 
 class VacancyController extends Controller
 {
+   
     public function index()
     {
-        $vacancies = Vacancy::all();
-        return view('site.vacancies.index', compact('vacancies'));
+    $vacancies = Vacancy::join('companies', 'companies.id', '=', 'vacancies.company_id')
+                        ->select('vacancies.*') 
+                        ->get();
+
+    return view('site.vacancies.index', compact('vacancies'));
     }
 
     public function create()

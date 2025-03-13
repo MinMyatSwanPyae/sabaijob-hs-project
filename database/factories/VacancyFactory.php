@@ -19,7 +19,7 @@ class VacancyFactory extends Factory
     public function definition(): array
     {
         return [
-            'company_id' => Company::factory(),
+            'company_id' => $this->faker->numberBetween(1, 20),  
             'title' => $this->faker->jobTitle,
             'description' => $this->faker->text,
             'location' => $this->faker->city,

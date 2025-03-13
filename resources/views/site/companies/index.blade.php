@@ -1,29 +1,25 @@
 <x-site-layout>
 
     <div class="container">
-        <h1>Companies</h1>
-        <a href="{{ route('companies.create') }}" class="btn btn-primary mb-3">Add New Company</a>
-        <div class="list-group">
-            @forelse ($companies as $company)
-                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                    {{ $company->name }}
-                    <div>
-                        <a href="{{ route('companies.show', $company) }}" class="btn btn-info btn-sm">View</a>
-                        <a href="{{ route('companies.edit', $company) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="{{ route('companies.destroy', $company) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this company?');">Delete</button>
-                        </form>
-                    </div>
-                </div>
-            @empty
-                <div class="list-group-item">No companies found.</div>
-            @endforelse
-        </div>
+        <h2 class="font-bold text-2xl">Companies</h2>
     
-        <div class="mt-4">
-            {{ $companies->links() }}
-        </div>
+        <ul class="list-disc pl-4">
+          @foreach($companies as $company)
+              <li>
+                  <a class="underline" href="/companies/{{$company->id}}">{{$company->name}}</a> 
+                  <a href="{{ route('companies.edit', $company->id) }}" class="btn btn-info">Edit</a>
+    
+                  <form method="POST" action="{{ route('companies.destroy', $company->id) }}" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this company?');">Delete</button>
+                  </form>
+              </li>
+          @endforeach
+        </ul>
+    
+        {{ $companies->links() }} 
+    </div>
+    
 
 </x-site-layout>

@@ -34,9 +34,12 @@ class CompanyController extends Controller
         return redirect()->route('companies.index')->with('success', 'Company created successfully!');
     }
 
-    public function show(Company $company)
+
+
+    public function show($id)
     {
-        return view('site.companies.show', compact('company'));
+    $company = Company::findOrFail($id);  
+    return view('site.companies.show', compact('company'));  
     }
 
     public function edit(Company $company)
