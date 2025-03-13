@@ -16,3 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
+
+    MiddlewarePriority::forWeb([
+        // ... other web middleware already included ...
+        IsAdmin::class,
+    ]);

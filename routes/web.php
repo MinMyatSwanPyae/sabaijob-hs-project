@@ -26,6 +26,14 @@ Route::get('/companies/{company}/edit', [CompanyController::class, 'edit'])->nam
 Route::put('/companies/{company}', [CompanyController::class, 'update'])->name('companies.update');
 Route::delete('/companies/{company}', [CompanyController::class, 'destroy'])->name('companies.destroy');
 
+
+// Admin Dashboard
+Route::middleware(['auth', IsAdmin::class])->group(function () {
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::resource('vacancies', VacancyController::class); // For CRUD
+});
+
+
 // Application Show Page
 Route::get('/applications/{id}', [ApplicationController::class, 'show'])->name('applications.show');
 
