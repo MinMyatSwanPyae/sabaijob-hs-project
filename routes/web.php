@@ -4,17 +4,18 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\VacancyController;
+use App\Http\Controllers\ApplicationController;
+
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Routes for Vacancies 
-Route::get('/vacancies', [\App\Http\Controllers\VacancyController::class, 'index']);
-//Route::get('/vacancies/{vacancy}', [\App\Http\Controllers\VacancyController::class, 'show']);
+Route::get('/vacancies', [VacancyController::class, 'index'])->name('vacancies.index');
+Route::get('/vacancies/create', [VacancyController::class, 'create'])->name('vacancies.create');
+Route::post('/vacancies', [VacancyController::class, 'store'])->name('vacancies.store');
 Route::get('/vacancies/{id}', [VacancyController::class, 'show'])->name('vacancies.show');
-
-// Vacancies Edit Function
 Route::get('/vacancies/{id}/edit', [VacancyController::class, 'edit'])->name('vacancies.edit');
 Route::put('/vacancies/{id}', [VacancyController::class, 'update'])->name('vacancies.update');
+Route::delete('/vacancies/{id}', [VacancyController::class, 'destroy'])->name('vacancies.destroy');
 
 // Routes For Companies 
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
@@ -23,6 +24,9 @@ Route::get('/companies/{id}', [CompanyController::class, 'show'])->name('compani
 // Company Edit Feature
 Route::get('/companies/{id}/edit', [CompanyController::class, 'edit'])->name('companies.edit');
 Route::put('/companies/{id}', [CompanyController::class, 'update'])->name('companies.update');
+
+// Application Show Page
+Route::get('/applications/{id}', [ApplicationController::class, 'show'])->name('applications.show');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

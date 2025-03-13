@@ -8,43 +8,58 @@ use App\Models\Vacancy;
 class VacancyController extends Controller
 {
     public function index()
-    { 
+    {
         $vacancies = Vacancy::all();
+        return view('site.vacancies.index', compact('vacancies'));
+    }
 
-        return view('site.vacancies.index', ['vacancies'=>$vacancies]);
+    public function create()
+    {
+        return view('site.vacancies.create');
+    }
 
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required',
+            // Other fields as necessary
+        ]);
+
+        Vacancy::create($validatedData);
+        return redirect()->route('vacancies.index');
     }
 
     public function show($id)
     {
-        // Fetching a single vacancy by ID with its related recruiter data
-        $vacancy = Vacancy::with('recruiter')->findOrFail($id);
-        return view('site.vacancies.show', compact('vacancy'));
+    $vacancy = Vacancy::with('company')->findOrFail($id);
+    return view('site.vacancies.show', compact('vacancy'));
     }
 
 
     public function edit($id)
     {
-    $vacancy = Vacancy::findOrFail($id);
-    return view('site.vacancies.edit', compact('vacancy'));
+         $vacancy = Vacancy::findOrFail($id);
+        return view('site.vacancies.edit', compact('vacancy'));
     }
 
-public function update(Request $request, $id)
+    public function update(Request $request, Vacancy $vacancy)
     {
-    $request->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'required|string',
-    ]);
-
-    $vacancy = Vacancy::findOrFail($id);
-    $vacancy->update([
-        'title' => $request->title,
-        'description' => $request->description,
-    ]);
-
-    return redirect()->route('vacancies.show', $vacancy->id)
-                     ->with('success', 'Vacancy updated successfully!');
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+    
+        $vacancy->update($request->all());   
+        return redirect()->route('vacancies.show', ['id' => $vacancy->id])
+                         ->with('success', 'Vacancy updated successfully!');
     }
 
+    public function destroy($id)
+        {
+        $vacancy = Vacancy::findOrFail($id);
+        $vacancy->delete();
 
+        return redirect()->route('vacancies.index')->with('success', 'Vacancy deleted successfully.');
+        }
 }

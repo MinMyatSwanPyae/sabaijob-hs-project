@@ -3,7 +3,7 @@
 
 <div class="container">
     <h1>Edit Vacancy</h1>
-    <form method="POST" action="{{ route('vacancies.update', $vacancy->id) }}">
+    <form method="POST" action="{{ route('vacancies.update', ['id' => $vacancy->id]) }}">
         @csrf
         @method('PUT')
 

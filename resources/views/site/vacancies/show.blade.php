@@ -19,6 +19,13 @@
         <a href="{{ route('vacancies.edit', $vacancy->id) }}" class="btn btn-info">Edit</a>
     
         <a href="{{ url('/vacancies') }}">Back to Vacancies</a>
+
+        <form method="POST" action="{{ route('vacancies.destroy', $vacancy->id) }}">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+
     </div>
 
 </x-site-layout>
