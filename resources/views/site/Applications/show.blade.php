@@ -10,7 +10,11 @@
         </div>
     </div>
 
-    <a href="{{ url('/applications') }}" class="btn btn-primary">Back to Applications</a>
+    <div class="mt-6">
+        <a href="{{ route('admin.vacancies.index') }}" class="px-3 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">
+            Back to Vacancies
+        </a>
+    </div>
 </div>
 </x-site-layout>
 

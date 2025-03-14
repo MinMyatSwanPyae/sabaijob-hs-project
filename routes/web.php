@@ -29,9 +29,13 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::put('/admin/vacancies/{id}', [AdminVacancyController::class, 'update'])->name('admin.vacancies.update');
     Route::delete('/admin/vacancies/{id}', [AdminVacancyController::class, 'destroy'])->name('admin.vacancies.destroy');
 
-    Route::get('/admin/companies/{id}', [AdminCompanyController::class, 'show'])->name('admin.companies.show');
-    Route::get('/admin/companies/{id}/edit', [AdminCompanyController::class, 'edit'])->name('admin.companies.edit');
-    Route::put('/admin/companies/{id}', [AdminCompanyController::class, 'update'])->name('admin.companies.update');
+    Route::get('/admin/companies', [AdminCompanyController::class, 'show'])->name('admin.companies.show');
+    Route::get('/admin/companies/edit', [AdminCompanyController::class, 'edit'])->name('admin.companies.edit');
+    Route::put('/admin/companies/update', [AdminCompanyController::class, 'update'])->name('admin.companies.update');
+    
+
+    Route::get('/applications/{id}', [ApplicationController::class, 'show'])->name('applications.show');
+
 });
    
     

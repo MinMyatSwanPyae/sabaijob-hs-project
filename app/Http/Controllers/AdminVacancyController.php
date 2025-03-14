@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 class AdminVacancyController extends Controller
 {
 
-    // Display a list of vacancies that belong to the admin's company
     public function index()
     {
         $adminCompanyId = Auth::user()->company_id; // Get the admin's company ID
@@ -19,68 +18,110 @@ class AdminVacancyController extends Controller
         return view('admin.vacancies.index', compact('vacancies'));
     }
 
-    // Show the create vacancy form
+
     public function create()
-    {
-        return view('admin.vacancies.create');
+{
+    if (auth()->user()->company_id === null) {
+        abort(403, 'Unauthorized access. You need to belong to a company to create a vacancy.');
     }
 
-    // Store a new vacancy in the database
+    return view('admin.vacancies.create');
+}
+
+
     public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'location' => 'required|string',
-        ]);
-
-        Vacancy::create([
-            'company_id' => Auth::user()->company_id, // Assign to admin's company
-            'title' => $request->title,
-            'description' => $request->description,
-            'location' => $request->location,
-        ]);
-
-        return redirect()->route('admin.vacancies.index')
-                         ->with('success', 'Vacancy created successfully');
+{
+    if (auth()->user()->company_id === null) {
+        abort(403, 'Unauthorized access.');
     }
 
-    // Show a specific vacancy
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'location' => 'required|string',
+    ]);
+
+    Vacancy::create([
+        'company_id' => auth()->user()->company_id,
+        'title' => $request->title,
+        'description' => $request->description,
+        'location' => $request->location,
+    ]);
+
+    return redirect()->route('admin.vacancies.index')->with('success', 'Vacancy created successfully.');
+}
+
+
+
     public function show($id)
     {
-        $vacancy = Vacancy::findOrFail($id);
-        return view('admin.vacancies.show', compact('vacancy'));
+    $adminCompanyId = auth()->user()->company_id; 
+   
+    $vacancy = Vacancy::where('id', $id)
+                      ->where('company_id', $adminCompanyId)
+                      ->with(['company', 'applications.user'])
+                      ->first();
+
+    if (!$vacancy) {
+        abort(403, 'Unauthorized access.'); 
     }
 
-    // Show the edit form for a specific vacancy
+    return view('admin.vacancies.show', compact('vacancy'));
+    }
+
+
     public function edit($id)
     {
-        $vacancy = Vacancy::findOrFail($id);
-        return view('admin.vacancies.edit', compact('vacancy'));
+    $adminCompanyId = auth()->user()->company_id;
+    $vacancy = Vacancy::where('id', $id)
+                      ->where('company_id', $adminCompanyId)
+                      ->first();
+
+    if (!$vacancy) {
+        abort(403, 'Unauthorized access.');
     }
 
-    // Update a vacancy
+    return view('admin.vacancies.edit', compact('vacancy'));
+    }
+
+
     public function update(Request $request, $id)
     {
+        $adminCompanyId = auth()->user()->company_id;
+        $vacancy = Vacancy::where('id', $id)
+                          ->where('company_id', $adminCompanyId)
+                          ->first();
+    
+        if (!$vacancy) {
+            abort(403, 'Unauthorized access.');
+        }
+    
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'location' => 'required|string',
         ]);
-
-        $vacancy = Vacancy::findOrFail($id);
+    
         $vacancy->update($request->all());
-
+    
         return redirect()->route('admin.vacancies.index')
                          ->with('success', 'Vacancy updated successfully');
     }
+    
 
-    // Delete a vacancy
     public function destroy($id)
     {
-        $vacancy = Vacancy::findOrFail($id);
+        $adminCompanyId = auth()->user()->company_id;
+        $vacancy = Vacancy::where('id', $id)
+                          ->where('company_id', $adminCompanyId)
+                          ->first();
+    
+        if (!$vacancy) {
+            abort(403, 'Unauthorized access.');
+        }
+    
         $vacancy->delete();
-
+    
         return redirect()->route('admin.vacancies.index')
                          ->with('success', 'Vacancy deleted successfully');
     }

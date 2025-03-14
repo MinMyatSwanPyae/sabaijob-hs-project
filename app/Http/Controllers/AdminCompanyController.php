@@ -1,40 +1,42 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Company; 
+use App\Models\Company;
+use Illuminate\Support\Facades\Auth;
+
 class AdminCompanyController extends Controller
 {
-    
-    // Display the specific company information
-    public function show($id)
+    public function show()
     {
-        $company = Company::findOrFail($id);
+
+        $company = Company::where('id', Auth::user()->company_id)->firstOrFail();
+
         return view('admin.companies.show', compact('company'));
     }
 
-    // Show the form for editing the specific company information
-    public function edit($id)
+    public function edit()
     {
-        $company = Company::findOrFail($id);
+        $company = Company::where('id', Auth::user()->company_id)->firstOrFail();
         return view('admin.companies.edit', compact('company'));
     }
 
-    // Update the specified company in storage
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $company = Company::where('id', Auth::user()->company_id)->firstOrFail();
+
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            // add other fields as necessary
+            'address' => 'nullable|string|max:255',
+            'website' => 'nullable|url|max:255',
         ]);
 
-        $company = Company::findOrFail($id);
-        $company->update($request->all());
+        $company->update([
+            'name' => $request->name,
+            'address' => $request->address,
+            'website' => $request->website,
+        ]);
 
-        return redirect()->route('admin.companies.show', $company->id)
-                         ->with('success', 'Company updated successfully');
+        return redirect()->route('admin.companies.show')->with('success', 'Company updated successfully.');
     }
 }
