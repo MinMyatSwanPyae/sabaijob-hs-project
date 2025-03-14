@@ -7,12 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminCompanyController extends Controller
 {
+    
     public function show()
     {
+    $company = Company::where('id', auth()->user()->company_id)->firstOrFail();
+    $colleagueAdmins = $company->users()->where('role', 'admin')->get();
 
-        $company = Company::where('id', Auth::user()->company_id)->firstOrFail();
-
-        return view('admin.companies.show', compact('company'));
+    return view('admin.companies.show', compact('company', 'colleagueAdmins'));
     }
 
     public function edit()
