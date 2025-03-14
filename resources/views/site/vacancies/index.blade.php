@@ -6,7 +6,7 @@
             <h2 class="text-xl font-bold mb-2">{{ $vacancy->title }}</h2>
             <p class="text-gray-700 mb-4">{{ Str::limit($vacancy->description, 100) }}</p>
             <div class="text-sm text-gray-600 mb-2">Location: {{ $vacancy->location }}</div>
-            <a href="{{ route('vacancies.show', $vacancy->id) }}" class="inline-block px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 transition-colors duration-200 text-sm">View Details</a>
+            <a href="{{ route('vacancies.show', $vacancy->id) }}" class="inline-block px-6 py-2 text-white bg-pink-500 rounded hover:bg-pink-600 transition-colors duration-200 text-sm">View Details</a>
         </div>
     @endforeach
 </div>

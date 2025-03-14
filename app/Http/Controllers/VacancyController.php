@@ -18,7 +18,8 @@ class VacancyController extends Controller
 
     public function show($id)
     {
-        $vacancy = Vacancy::with('company')->findOrFail($id);
-        return view('site.vacancies.show', compact('vacancy'));
+    $vacancy = Vacancy::with(['company', 'applications'])->findOrFail($id);
+
+    return view('site.vacancies.show', compact('vacancy'));
     }
 }
