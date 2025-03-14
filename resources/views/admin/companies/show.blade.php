@@ -30,7 +30,6 @@
                         <div class="bg-white shadow-lg rounded-lg p-5 hover:shadow-xl transition-shadow duration-300">
                             <h3 class="text-xl font-bold mb-2">{{ $admin->name }}</h3>
                             <p class="text-gray-700 mb-2"><strong>Email:</strong> {{ $admin->email }}</p>
-                            <p class="text-gray-600"><strong>Joined:</strong> {{ $admin->created_at->format('d M Y') }}</p>
                         </div>
                     @endforeach
                 </div>
