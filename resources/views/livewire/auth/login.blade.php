@@ -40,7 +40,12 @@ new #[Layout('components.layouts.auth')] class extends Component {
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
 
-        $this->redirectIntended(default: route('admin.vacancies.show', absolute: false), navigate: true);
+        $this->redirectIntended(
+    default: auth()->user()->role === 'admin' 
+        ? route('admin.vacancies.index') 
+        : route('home')
+);
+
     }
 
     /**

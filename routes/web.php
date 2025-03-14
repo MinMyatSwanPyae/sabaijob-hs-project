@@ -9,6 +9,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminVacancyController;
 use App\Http\Controllers\AdminCompanyController;
+use App\Http\Controllers\AdminProfileController;
 use Livewire\Livewire;
 use Livewire\Volt\Volt;
 
@@ -33,6 +34,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin/companies/edit', [AdminCompanyController::class, 'edit'])->name('admin.companies.edit');
     Route::put('/admin/companies/update', [AdminCompanyController::class, 'update'])->name('admin.companies.update');
     
+    Route::get('/admin/profile', [AdminProfileController::class, 'edit'])->name('admin.profile.edit');
+    Route::put('/admin/profile', [AdminProfileController::class, 'update'])->name('admin.profile.update');
 
     Route::get('/applications/{id}', [ApplicationController::class, 'show'])->name('applications.show');
 

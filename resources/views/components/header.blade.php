@@ -36,7 +36,7 @@
                     </button>
 
                     <div id="userDropdownMenu" class="absolute right-0 mt-2 w-48 bg-white text-gray-800 shadow-lg rounded-md hidden">
-                        <a href="/profile" class="block px-4 py-2 hover:bg-gray-200">Profile</a>
+                        <a href="{{ route('admin.profile.edit') }}" class="block px-4 py-2 hover:bg-gray-200">Profile</a>
                         <form method="POST" action="{{ route('logout') }}" class="block">
                             @csrf
                             <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-200">Logout</button>
@@ -88,5 +88,6 @@
             document.getElementById('mobileMenu').classList.toggle('hidden');
         });
     </script>
+
 </body>
 
