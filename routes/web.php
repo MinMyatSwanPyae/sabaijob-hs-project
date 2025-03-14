@@ -6,9 +6,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\ApplicationController;
-use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Admin\AdminVacancyController;
-use App\Http\Controllers\Admin\AdminCompanyController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminVacancyController;
+use App\Http\Controllers\AdminCompanyController;
 use Livewire\Livewire;
 use Livewire\Volt\Volt;
 
@@ -20,13 +20,12 @@ Auth::routes();
 
 // Admin-specific routes
 Route::middleware(['auth', 'isAdmin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminVacancyController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/vacancies', [AdminVacancyController::class, 'index'])->name('admin.vacancies.index');
-   Route::get('vacancies/create', [AdminVacancyController::class, 'create'])->name('admin.vacancies.create');
-   Route::post('/admin/vacancies', [AdminVacancyController::class, 'store'])->name('admin.vacancies.store');
-    Route::get('/admin/vacancies/{id}', [AdminVacancyController::class, 'show'])->name('admin.vacancies.show');
-    Route::get('/admin/companies', [AdminCompanyController::class, 'show'])->name('admin.company.show');
+    Route::get('/admin/companies/{id}', [AdminCompanyController::class, 'show'])->name('companies.show');
+    Route::get('/admin/companies/{id}/edit', [AdminCompanyController::class, 'edit'])->name('companies.edit');
+    Route::put('/admin/companies/{id}', [AdminCompanyController::class, 'update'])->name('companies.update');
 });
+
 
 
 // Public Routes for Vacancies

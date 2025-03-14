@@ -20,7 +20,7 @@ return new class extends Migration
                     $table->string('password');
                     $table->rememberToken();
                     $table->timestamps();
-                    $table->string('role')->default('user');  // 'user' or 'recruiter'
+                    $table->string('role')->default('user');  
                     $table->foreignId('company_id')->nullable()->constrained('companies')->onDelete('set null');
             });
 
