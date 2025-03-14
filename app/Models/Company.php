@@ -12,13 +12,18 @@ class Company extends Model
         'name', 'address', 'website'
     ];
 
-    public function recruiters()
+    public function admins()
     {
-        return $this->hasMany(User::class)->where('role', 'recruiter');
+        return $this->hasMany(User::class)->where('role', 'admin');
     }
 
     public function vacancies()
     {
         return $this->hasMany(Vacancy::class);
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
     }
 }

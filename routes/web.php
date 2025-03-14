@@ -20,11 +20,25 @@ Auth::routes();
 
 // Admin-specific routes
 Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/admin/vacancies', [AdminController::class, 'showVacancies'])->name('admin.vacancies.show');
+    Route::get('/admin/vacancies/{id}', [AdminVacancyController::class, 'show'])->name('admin.vacancies.show');
     Route::get('/admin/vacancies', [AdminVacancyController::class, 'index'])->name('admin.vacancies.index');
-    Route::get('/admin/companies/{id}', [AdminCompanyController::class, 'show'])->name('companies.show');
-    Route::get('/admin/companies/{id}/edit', [AdminCompanyController::class, 'edit'])->name('companies.edit');
-    Route::put('/admin/companies/{id}', [AdminCompanyController::class, 'update'])->name('companies.update');
+    Route::get('/admin/vacancies/create', [AdminVacancyController::class, 'create'])->name('admin.vacancies.create');
+    Route::post('/admin/vacancies', [AdminVacancyController::class, 'store'])->name('admin.vacancies.store');
+    Route::get('/admin/vacancies/{id}/edit', [AdminVacancyController::class, 'edit'])->name('admin.vacancies.edit');
+    Route::put('/admin/vacancies/{id}', [AdminVacancyController::class, 'update'])->name('admin.vacancies.update');
+    Route::delete('/admin/vacancies/{id}', [AdminVacancyController::class, 'destroy'])->name('admin.vacancies.destroy');
+
+    Route::get('/admin/companies/{id}', [AdminCompanyController::class, 'show'])->name('admin.companies.show');
+    Route::get('/admin/companies/{id}/edit', [AdminCompanyController::class, 'edit'])->name('admin.companies.edit');
+    Route::put('/admin/companies/{id}', [AdminCompanyController::class, 'update'])->name('admin.companies.update');
 });
+   
+    
+
+
+
+
 
 
 
