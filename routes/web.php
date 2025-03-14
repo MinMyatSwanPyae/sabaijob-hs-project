@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Auth\Register;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CompanyController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\AdminCompanyController;
 use App\Http\Controllers\AdminProfileController;
 use Livewire\Livewire;
 use Livewire\Volt\Volt;
+
+
 
 // Home route
 Route::get('/', [HomeController::class, 'index'])->name('home');
